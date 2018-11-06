@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kj.base.mapper.ClassEntityMapper">
+  <resultMap id="BaseResultMap" type="com.kj.base.entity.ClassEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="classname" jdbcType="VARCHAR" property="classname" />
+    <result column="teachername" jdbcType="VARCHAR" property="teachername" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, classname, teachername, createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_b_class
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_b_class
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kj.base.entity.ClassEntity">
+    insert into t_b_class (id, classname, teachername, 
+      createTime)
+    values (#{id,jdbcType=VARCHAR}, #{classname,jdbcType=VARCHAR}, #{teachername,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kj.base.entity.ClassEntity">
+    insert into t_b_class
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="classname != null">
+        classname,
+      </if>
+      <if test="teachername != null">
+        teachername,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="classname != null">
+        #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="teachername != null">
+        #{teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kj.base.entity.ClassEntity">
+    update t_b_class
+    <set>
+      <if test="classname != null">
+        classname = #{classname,jdbcType=VARCHAR},
+      </if>
+      <if test="teachername != null">
+        teachername = #{teachername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kj.base.entity.ClassEntity">
+    update t_b_class
+    set classname = #{classname,jdbcType=VARCHAR},
+      teachername = #{teachername,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+   <select id="selectAllClassInfo" resultMap="BaseResultMap" parameterType="java.util.Map">
+  	select 
+    <include refid="Base_Column_List" />
+    from t_b_class 
+   	<where>
+   		<if test="className != null and className !='' ">
+   			classname LIKE concat(concat('%',#{className}),'%')
+   		</if>
+   			<if test="teacherName != null and teacherName !='' ">
+   			and teachername LIKE concat(concat('%',#{teacherName}),'%')
+   		</if>
+   	</where>
+    limit #{start},#{size}
+  </select>
+    <select id="selectAllCount" resultType="java.lang.Integer" >
+  	select count(*) from t_b_class
+  </select>
+</mapper>

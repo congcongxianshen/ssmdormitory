@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kj.base.mapper.ResourceEntityMapper">
+  <resultMap id="BaseResultMap" type="com.kj.base.entity.ResourceEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="href" jdbcType="VARCHAR" property="href" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="order_no" jdbcType="INTEGER" property="orderNo" />
+    <result column="resourceType" jdbcType="INTEGER" property="resourcetype" />
+    <result column="parentid" jdbcType="VARCHAR" property="parentid" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, createTime, description, href, name, order_no, resourceType, parentid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_s_resource
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_s_resource
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kj.base.entity.ResourceEntity">
+    insert into t_s_resource (id, createTime, description, 
+      href, name, order_no, 
+      resourceType, parentid)
+    values (#{id,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{description,jdbcType=VARCHAR}, 
+      #{href,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{orderNo,jdbcType=INTEGER}, 
+      #{resourcetype,jdbcType=INTEGER}, #{parentid,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kj.base.entity.ResourceEntity">
+    insert into t_s_resource
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="href != null">
+        href,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="orderNo != null">
+        order_no,
+      </if>
+      <if test="resourcetype != null">
+        resourceType,
+      </if>
+      <if test="parentid != null">
+        parentid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null">
+        #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="resourcetype != null">
+        #{resourcetype,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kj.base.entity.ResourceEntity">
+    update t_s_resource
+    <set>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="href != null">
+        href = #{href,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNo != null">
+        order_no = #{orderNo,jdbcType=INTEGER},
+      </if>
+      <if test="resourcetype != null">
+        resourceType = #{resourcetype,jdbcType=INTEGER},
+      </if>
+      <if test="parentid != null">
+        parentid = #{parentid,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kj.base.entity.ResourceEntity">
+    update t_s_resource
+    set createTime = #{createtime,jdbcType=TIMESTAMP},
+      description = #{description,jdbcType=VARCHAR},
+      href = #{href,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      order_no = #{orderNo,jdbcType=INTEGER},
+      resourceType = #{resourcetype,jdbcType=INTEGER},
+      parentid = #{parentid,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

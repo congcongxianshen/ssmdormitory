@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kj.base.mapper.DormEntityMapper">
+  <resultMap id="BaseResultMap" type="com.kj.base.entity.DormEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="dormname" jdbcType="VARCHAR" property="dormname" />
+    <result column="total" jdbcType="INTEGER" property="total" />
+    <result column="used" jdbcType="INTEGER" property="used" />
+    <result column="dormadmin" jdbcType="VARCHAR" property="dormadmin" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dormname, total, used, dormadmin, remark, createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_b_dorm
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from t_b_dorm
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kj.base.entity.DormEntity">
+    insert into t_b_dorm (id, dormname, total, 
+      used, dormadmin, remark, 
+      createTime)
+    values (#{id,jdbcType=VARCHAR}, #{dormname,jdbcType=VARCHAR}, #{total,jdbcType=INTEGER}, 
+      #{used,jdbcType=INTEGER}, #{dormadmin,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kj.base.entity.DormEntity">
+    insert into t_b_dorm
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dormname != null">
+        dormname,
+      </if>
+      <if test="total != null">
+        total,
+      </if>
+      <if test="used != null">
+        used,
+      </if>
+      <if test="dormadmin != null">
+        dormadmin,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dormname != null">
+        #{dormname,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=INTEGER},
+      </if>
+      <if test="used != null">
+        #{used,jdbcType=INTEGER},
+      </if>
+      <if test="dormadmin != null">
+        #{dormadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kj.base.entity.DormEntity">
+    update t_b_dorm
+    <set>
+      <if test="dormname != null">
+        dormname = #{dormname,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        total = #{total,jdbcType=INTEGER},
+      </if>
+      <if test="used != null">
+        used = #{used,jdbcType=INTEGER},
+      </if>
+      <if test="dormadmin != null">
+        dormadmin = #{dormadmin,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kj.base.entity.DormEntity">
+    update t_b_dorm
+    set dormname = #{dormname,jdbcType=VARCHAR},
+      total = #{total,jdbcType=INTEGER},
+      used = #{used,jdbcType=INTEGER},
+      dormadmin = #{dormadmin,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

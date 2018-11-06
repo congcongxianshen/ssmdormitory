@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kj.base.mapper.ScoreEntityMapper">
+  <resultMap id="BaseResultMap" type="com.kj.base.entity.ScoreEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="dormid" jdbcType="VARCHAR" property="dormid" />
+    <result column="score" jdbcType="INTEGER" property="score" />
+    <result column="scoredate" jdbcType="DATE" property="scoredate" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dormid, score, scoredate, createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.kj.base.entity.ScoreEntity" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_b_score
+    where id = #{id,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.kj.base.entity.ScoreEntity">
+    delete from t_b_score
+    where id = #{id,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kj.base.entity.ScoreEntity">
+    insert into t_b_score (id, dormid, score, 
+      scoredate, createTime)
+    values (#{id,jdbcType=VARCHAR}, #{dormid,jdbcType=VARCHAR}, #{score,jdbcType=INTEGER}, 
+      #{scoredate,jdbcType=DATE}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kj.base.entity.ScoreEntity">
+    insert into t_b_score
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dormid != null">
+        dormid,
+      </if>
+      <if test="score != null">
+        score,
+      </if>
+      <if test="scoredate != null">
+        scoredate,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dormid != null">
+        #{dormid,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null">
+        #{score,jdbcType=INTEGER},
+      </if>
+      <if test="scoredate != null">
+        #{scoredate,jdbcType=DATE},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kj.base.entity.ScoreEntity">
+    update t_b_score
+    <set>
+      <if test="score != null">
+        score = #{score,jdbcType=INTEGER},
+      </if>
+      <if test="scoredate != null">
+        scoredate = #{scoredate,jdbcType=DATE},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kj.base.entity.ScoreEntity">
+    update t_b_score
+    set score = #{score,jdbcType=INTEGER},
+      scoredate = #{scoredate,jdbcType=DATE},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </update>
+</mapper>

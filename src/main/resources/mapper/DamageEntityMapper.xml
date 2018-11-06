@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kj.base.mapper.DamageEntityMapper">
+  <resultMap id="BaseResultMap" type="com.kj.base.entity.DamageEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="dormid" jdbcType="VARCHAR" property="dormid" />
+    <result column="damagestation" jdbcType="VARCHAR" property="damagestation" />
+    <result column="damagetime" jdbcType="DATE" property="damagetime" />
+    <result column="fixtime" jdbcType="DATE" property="fixtime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+    <result column="isfixed" jdbcType="VARCHAR" property="isfixed" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, dormid, damagestation, damagetime, fixtime, remark, createTime, isfixed
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.kj.base.entity.DamageEntity" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_b_damage
+    where id = #{id,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.kj.base.entity.DamageEntity">
+    delete from t_b_damage
+    where id = #{id,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kj.base.entity.DamageEntity">
+    insert into t_b_damage (id, dormid, damagestation, 
+      damagetime, fixtime, remark, 
+      createTime, isfixed)
+    values (#{id,jdbcType=VARCHAR}, #{dormid,jdbcType=VARCHAR}, #{damagestation,jdbcType=VARCHAR}, 
+      #{damagetime,jdbcType=DATE}, #{fixtime,jdbcType=DATE}, #{remark,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{isfixed,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kj.base.entity.DamageEntity">
+    insert into t_b_damage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="dormid != null">
+        dormid,
+      </if>
+      <if test="damagestation != null">
+        damagestation,
+      </if>
+      <if test="damagetime != null">
+        damagetime,
+      </if>
+      <if test="fixtime != null">
+        fixtime,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="isfixed != null">
+        isfixed,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="dormid != null">
+        #{dormid,jdbcType=VARCHAR},
+      </if>
+      <if test="damagestation != null">
+        #{damagestation,jdbcType=VARCHAR},
+      </if>
+      <if test="damagetime != null">
+        #{damagetime,jdbcType=DATE},
+      </if>
+      <if test="fixtime != null">
+        #{fixtime,jdbcType=DATE},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isfixed != null">
+        #{isfixed,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kj.base.entity.DamageEntity">
+    update t_b_damage
+    <set>
+      <if test="damagestation != null">
+        damagestation = #{damagestation,jdbcType=VARCHAR},
+      </if>
+      <if test="damagetime != null">
+        damagetime = #{damagetime,jdbcType=DATE},
+      </if>
+      <if test="fixtime != null">
+        fixtime = #{fixtime,jdbcType=DATE},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isfixed != null">
+        isfixed = #{isfixed,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kj.base.entity.DamageEntity">
+    update t_b_damage
+    set damagestation = #{damagestation,jdbcType=VARCHAR},
+      damagetime = #{damagetime,jdbcType=DATE},
+      fixtime = #{fixtime,jdbcType=DATE},
+      remark = #{remark,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      isfixed = #{isfixed,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </update>
+</mapper>

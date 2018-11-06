@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kj.base.mapper.VisitorEntityMapper">
+  <resultMap id="BaseResultMap" type="com.kj.base.entity.VisitorEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="studentid" jdbcType="VARCHAR" property="studentid" />
+    <result column="visitorname" jdbcType="VARCHAR" property="visitorname" />
+    <result column="relationship" jdbcType="VARCHAR" property="relationship" />
+    <result column="starttime" jdbcType="TIMESTAMP" property="starttime" />
+    <result column="endtime" jdbcType="TIMESTAMP" property="endtime" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, studentid, visitorname, relationship, starttime, endtime, remark, createTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.kj.base.entity.VisitorEntity" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_b_visitor
+    where id = #{id,jdbcType=VARCHAR}
+      and studentid = #{studentid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.kj.base.entity.VisitorEntity">
+    delete from t_b_visitor
+    where id = #{id,jdbcType=VARCHAR}
+      and studentid = #{studentid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kj.base.entity.VisitorEntity">
+    insert into t_b_visitor (id, studentid, visitorname, 
+      relationship, starttime, endtime, 
+      remark, createTime)
+    values (#{id,jdbcType=VARCHAR}, #{studentid,jdbcType=VARCHAR}, #{visitorname,jdbcType=VARCHAR}, 
+      #{relationship,jdbcType=VARCHAR}, #{starttime,jdbcType=TIMESTAMP}, #{endtime,jdbcType=TIMESTAMP}, 
+      #{remark,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kj.base.entity.VisitorEntity">
+    insert into t_b_visitor
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="studentid != null">
+        studentid,
+      </if>
+      <if test="visitorname != null">
+        visitorname,
+      </if>
+      <if test="relationship != null">
+        relationship,
+      </if>
+      <if test="starttime != null">
+        starttime,
+      </if>
+      <if test="endtime != null">
+        endtime,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="studentid != null">
+        #{studentid,jdbcType=VARCHAR},
+      </if>
+      <if test="visitorname != null">
+        #{visitorname,jdbcType=VARCHAR},
+      </if>
+      <if test="relationship != null">
+        #{relationship,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kj.base.entity.VisitorEntity">
+    update t_b_visitor
+    <set>
+      <if test="visitorname != null">
+        visitorname = #{visitorname,jdbcType=VARCHAR},
+      </if>
+      <if test="relationship != null">
+        relationship = #{relationship,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        starttime = #{starttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endtime != null">
+        endtime = #{endtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+      and studentid = #{studentid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kj.base.entity.VisitorEntity">
+    update t_b_visitor
+    set visitorname = #{visitorname,jdbcType=VARCHAR},
+      relationship = #{relationship,jdbcType=VARCHAR},
+      starttime = #{starttime,jdbcType=TIMESTAMP},
+      endtime = #{endtime,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+      and studentid = #{studentid,jdbcType=VARCHAR}
+  </update>
+</mapper>

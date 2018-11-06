@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kj.base.mapper.StudentEntityMapper">
+  <resultMap id="BaseResultMap" type="com.kj.base.entity.StudentEntity">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <id column="classid" jdbcType="VARCHAR" property="classid" />
+    <id column="dormid" jdbcType="VARCHAR" property="dormid" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="birthday" jdbcType="DATE" property="birthday" />
+    <result column="qq" jdbcType="VARCHAR" property="qq" />
+    <result column="mobile" jdbcType="VARCHAR" property="mobile" />
+    <result column="createTime" jdbcType="TIMESTAMP" property="createtime" />
+  </resultMap>
+      <resultMap extends="BaseResultMap" type="java.util.Map" id="StuResultVOMap">
+  	<result column="dormname" property="dormName" jdbcType="VARCHAR" />
+  	<result column="classname" property="className" jdbcType="VARCHAR" /> 
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, classid, dormid, name, sex, birthday, qq, mobile, createTime
+  </sql>
+   <sql id="StuVO_Column_List" >
+    stu.id, stu.classid, stu.dormid, stu.name, stu.sex, stu.birthday, stu.qq, 
+    stu.mobile, stu.createTime,dorm.dormname,class.classname
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="com.kj.base.entity.StudentEntity" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_b_student
+    where id = #{id,jdbcType=VARCHAR}
+      and classid = #{classid,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.kj.base.entity.StudentEntity">
+    delete from t_b_student
+    where id = #{id,jdbcType=VARCHAR}
+      and classid = #{classid,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.kj.base.entity.StudentEntity">
+    insert into t_b_student (id, classid, dormid, 
+      name, sex, birthday, qq, 
+      mobile, createTime)
+    values (#{id,jdbcType=VARCHAR}, #{classid,jdbcType=VARCHAR}, #{dormid,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, #{qq,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.kj.base.entity.StudentEntity">
+    insert into t_b_student
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="classid != null">
+        classid,
+      </if>
+      <if test="dormid != null">
+        dormid,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="birthday != null">
+        birthday,
+      </if>
+      <if test="qq != null">
+        qq,
+      </if>
+      <if test="mobile != null">
+        mobile,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="classid != null">
+        #{classid,jdbcType=VARCHAR},
+      </if>
+      <if test="dormid != null">
+        #{dormid,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="qq != null">
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.kj.base.entity.StudentEntity">
+    update t_b_student
+    <set>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null">
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="qq != null">
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null">
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+      and classid = #{classid,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.kj.base.entity.StudentEntity">
+    update t_b_student
+    set name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      qq = #{qq,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=VARCHAR}
+      and classid = #{classid,jdbcType=VARCHAR}
+      and dormid = #{dormid,jdbcType=VARCHAR}
+  </update>
+  <select id="selectCounts" resultType="java.lang.Integer">
+ 	select count(*) from t_b_student
+ </select> 
+ <select id="selectByCondition" parameterType="java.util.Map" resultMap="StuResultVOMap">
+ 	select 
+ 		 <include refid="StuVO_Column_List" />
+ 	from t_b_student stu,t_b_dorm dorm ,t_b_class class
+ 	<where>
+ 	 	dorm.id=stu.dormid 
+ 	 	and stu.classid=class.id
+ 		<if test="student.name != null and student.name !='' ">
+ 			and stu.name LIKE concat(concat('%',#{student.name}),'%')
+ 		</if>
+ 		<if test="student.mobile != null and student.mobile !='' ">
+ 			and stu.mobile LIKE concat(concat('%',#{student.mobile}),'%')
+ 		</if>
+ 		<if test="student.qq != null and student.qq !='' ">
+ 			and stu.qq LIKE concat(concat('%',#{student.qq}),'%')
+ 		</if>
+ 		<if test="dormName != null and dormName !='' ">
+ 			and dorm.dormname LIKE concat(concat('%',#{dormName}),'%')
+ 		</if>
+ 	</where>
+ 	limit #{start},#{size}
+ 	</select>
+</mapper>
